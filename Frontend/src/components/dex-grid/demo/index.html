@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dex-grid demo</title>
+<script src="/node_modules/ag-grid-community/dist/ag-grid-community.js"></script>
+<script src="/node_modules/xlsx/dist/xlsx.full.min.js"></script>
+<script src="/node_modules/ag-charts-community/dist/umd/ag-charts-community.js"></script>
+<link rel="stylesheet" href="/src/styles.css">
+<style>
+  :root { color-scheme: light; }
+  body { margin: 0; padding: 16px; font: 14px system-ui, sans-serif; background: #fff; color: #111; }
+  h1 { font-size: 18px; margin: 0 0 8px; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; align-items: center; }
+  .toolbar button { font: inherit; padding: 4px 10px; cursor: pointer; }
+  .toolbar input { font: inherit; padding: 4px 6px; }
+  #grid { height: calc(100vh - 110px); min-height: 400px; }
+  .hint { color: #555; font-size: 12px; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<h1>dex-grid demo</h1>
+<div class="hint">Sağ tık: menü · Sürükle: hücre aralığı · Ctrl+C / Ctrl+V · Sağ panel: kolonlar, gruplama, pivot · Başlıktaki filtre: set filter</div>
+<div class="toolbar">
+  <input id="quick" placeholder="Hızlı arama">
+  <button data-action="groupHole">Kuyuya göre grupla</button>
+  <button data-action="groupLith">Litolojiye göre grupla</button>
+  <button data-action="ungroup">Gruplamayı kaldır</button>
+  <button data-action="expandAll">Tümünü aç</button>
+  <button data-action="collapseAll">Tümünü kapat</button>
+  <button data-action="pivot">Pivot (yıl)</button>
+  <button data-action="excel">Excel</button>
+  <button data-action="csv">CSV</button>
+  <button data-action="chart">Seçimden grafik</button>
+  <button data-action="add">Satır ekle</button>
+  <button data-action="remove">Seçilileri sil</button>
+</div>
+<div id="grid"></div>
+<script type="module">
+  import { createDexGrid } from "/src/index.js";
+
+  const lith = ["Andezit", "Bazalt", "Granit", "Tüf", null];
+  const rows = Array.from({ length: 2000 }, (_, i) => ({
+    id: String(i + 1),
+    HoleID: `BH-${String(i % 25).padStart(3, "0")}`,
+    SampleID: `S${String(i + 1).padStart(5, "0")}`,
+    Year: 2021 + (i % 5),
+    From: Math.round(i * 1.5 * 10) / 10,
+    To: Math.round((i * 1.5 + 1.5) * 10) / 10,
+    Lithology: lith[i % lith.length],
+    Au_ppm: Math.round(((i * 7919) % 1000) / 10) / 10,
+    Cu_pct: Math.round(((i * 104729) % 500) / 10) / 100,
+    Tags: i % 3 ? ["qaqc"] : ["qaqc", "duplicate"],
+  }));
+
+  const localeText = { blanks: "(Boş)", selectAll: "(Tümünü Seç)", searchOoo: "Ara...", copy: "Kopyala", copyWithHeaders: "Başlıklarla Kopyala", paste: "Yapıştır", export: "Dışa Aktar", csvExport: "CSV", excelExport: "Excel", columns: "Kolonlar", group: "Grup", total: "Toplam", pivotMode: "Pivot Modu", rowGroupColumnsEmptyMessage: "Satır Grupları", dragHereToSetRowGroups: "Gruplamak için buraya sürükleyin", valueColumnsEmptyMessage: "Değerler", dragHereToAggregate: "Toplamak için buraya sürükleyin", pivotColumnsEmptyMessage: "Kolon Etiketleri", dragHereToSetColumnLabels: "Kolon etiketi için buraya sürükleyin", chartRange: "Grafik", expandAll: "Tümünü Aç", collapseAll: "Tümünü Kapat", autosizeAllColumns: "Kolonları Sığdır" };
+
+  const num2 = (p) => (typeof p.value === "number" ? p.value.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "");
+
+  const api = createDexGrid(document.getElementById("grid"), {
+    localeText,
+    getRowId: (p) => p.data.id,
+    rowData: rows,
+    undoRedoCellEditing: true,
+    defaultColDef: { sortable: true, filter: true, resizable: true, minWidth: 100, editable: true, enableRowGroup: true, enablePivot: true },
+    columnDefs: [
+      { field: "HoleID", filter: "agSetColumnFilter", pinned: "left", editable: false },
+      { field: "SampleID", filter: "agTextColumnFilter" },
+      { field: "Year", filter: "agSetColumnFilter" },
+      { field: "From", filter: "agNumberColumnFilter", enableValue: true },
+      { field: "To", filter: "agNumberColumnFilter", enableValue: true },
+      { field: "Lithology", filter: "agSetColumnFilter", cellEditor: "agRichSelectCellEditor", cellEditorParams: { values: ["Andezit", "Bazalt", "Granit", "Tüf"], filterList: true } },
+      { field: "Au_ppm", headerName: "Au (ppm)", filter: "agNumberColumnFilter", enableValue: true, aggFunc: "avg", valueFormatter: num2, context: { excel: { numberFormat: "0.00" } } },
+      { field: "Cu_pct", headerName: "Cu (%)", filter: "agNumberColumnFilter", enableValue: true, valueFormatter: num2 },
+      { field: "Tags", filter: "agSetColumnFilter", editable: false, valueFormatter: (p) => (Array.isArray(p.value) ? p.value.join(", ") : "") },
+    ],
+    rowSelection: { mode: "multiRow", checkboxes: true, headerCheckbox: true, enableClickSelection: false, selectAll: "filtered" },
+    cellSelection: true,
+    enableCharts: true,
+    sideBar: { toolPanels: [{ id: "columns", labelDefault: "Kolonlar", toolPanel: "agColumnsToolPanel" }] },
+    rowGroupPanelShow: "always",
+    groupDefaultExpanded: 1,
+    autoGroupColumnDef: { headerName: "Grup", minWidth: 220, cellRenderer: "agGroupCellRenderer" },
+    getContextMenuItems: (p) => ["copy", "copyWithHeaders", "paste", "separator", "chartRange", "separator", "expandAll", "contractAll", "autoSizeAll", "separator", "export", "separator", { name: `Satır: ${p.node?.data?.SampleID ?? "-"}`, disabled: true }],
+  });
+  window.api = api;
+
+  let nextId = rows.length + 1;
+  const actions = {
+    groupHole: () => api.setRowGroupColumns(["HoleID"]),
+    groupLith: () => api.setRowGroupColumns(["HoleID", "Lithology"]),
+    ungroup: () => { api.setPivotMode(false); api.setRowGroupColumns([]); },
+    expandAll: () => api.expandAll(),
+    collapseAll: () => api.collapseAll(),
+    pivot: () => { api.setRowGroupColumns(["HoleID"]); api.setValueColumns(["Au_ppm"]); api.setPivotColumns(["Year"]); api.setPivotMode(true); },
+    excel: () => api.exportDataAsExcel({ fileName: "dex-grid-demo.xlsx", sheetName: "Numuneler" }),
+    csv: () => api.exportDataAsCsv({ fileName: "dex-grid-demo.csv" }),
+    chart: () => api.createRangeChart({ chartType: "groupedColumn" }) ?? alert("Önce sayısal bir kolon içeren hücre aralığı seçin."),
+    add: () => api.applyTransaction({ add: [{ id: String(nextId), HoleID: "BH-NEW", SampleID: `S${nextId++}`, Year: 2025, From: 0, To: 1, Lithology: null, Au_ppm: 0, Cu_pct: 0, Tags: [] }], addIndex: 0 }),
+    remove: () => api.applyTransaction({ remove: api.getSelectedRows() }),
+  };
+  document.querySelector(".toolbar").addEventListener("click", (e) => actions[e.target.dataset.action]?.());
+  document.getElementById("quick").addEventListener("input", (e) => api.setGridOption("quickFilterText", e.target.value));
+</script>
+</body>
+</html>

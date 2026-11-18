@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>dex-grid browser tests</title>
+<script src="/node_modules/ag-grid-community/dist/ag-grid-community.js"></script>
+<script src="/node_modules/xlsx/dist/xlsx.full.min.js"></script>
+<script src="/node_modules/ag-charts-community/dist/umd/ag-charts-community.js"></script>
+<link rel="stylesheet" href="/src/styles.css">
+<style>
+  body { font-family: system-ui, sans-serif; margin: 16px; background: #fff; color: #111; }
+  #results { white-space: pre-wrap; font: 13px/1.4 ui-monospace, monospace; }
+  #stage { position: relative; }
+</style>
+</head>
+<body>
+<h1>dex-grid browser tests</h1>
+<pre id="results">running…</pre>
+<div id="stage"></div>
+<script type="module">
+  import { run } from "./runner.js";
+  const suites = (new URLSearchParams(location.search).get("suites") ?? "excel").split(",");
+  for (const s of suites) await import(`./${s}.test.js`);
+  await run(new URLSearchParams(location.search).get("filter") ?? undefined);
+</script>
+</body>
+</html>

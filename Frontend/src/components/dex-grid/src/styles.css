@@ -1,0 +1,78 @@
+/* dex-grid feature styles. Grid theming comes from AG Grid Community's theme API;
+   these rules use AG Grid's CSS variables where available so they follow the theme. */
+
+.dex-set-filter { width: 240px; padding: 6px; box-sizing: border-box; font: inherit; }
+.dex-set-filter-search { padding-bottom: 6px; }
+.dex-set-filter-mini { width: 100%; box-sizing: border-box; padding: 4px 6px; border: 1px solid var(--ag-border-color, #ccc); border-radius: 3px; font: inherit; }
+.dex-set-filter-item { display: flex; align-items: center; gap: 6px; height: 24px; white-space: nowrap; cursor: pointer; }
+.dex-set-filter-item span { overflow: hidden; text-overflow: ellipsis; }
+.dex-set-filter-list { position: relative; overflow-y: auto; overflow-x: hidden; }
+.dex-set-filter-spacer { width: 1px; }
+.dex-set-filter-row { position: absolute; left: 0; right: 0; }
+
+.dex-grid-root { display: flex; flex-direction: row; }
+.dex-grid-root.dex-side-left { flex-direction: row-reverse; }
+.dex-grid-main { flex: 1 1 auto; min-width: 0; height: 100%; display: flex; flex-direction: column; }
+.dex-grid-host { flex: 1 1 auto; min-height: 0; }
+.dex-side-bar { display: flex; flex-direction: row; height: 100%; border-left: 1px solid var(--ag-border-color, #ccc); background: var(--ag-background-color, #fff); }
+.dex-side-bar[hidden] { display: none; }
+.dex-side-left .dex-side-bar { border-left: 0; border-right: 1px solid var(--ag-border-color, #ccc); }
+.dex-side-tabs { display: flex; flex-direction: column; }
+.dex-side-tab { writing-mode: vertical-rl; padding: 10px 4px; border: 0; background: transparent; cursor: pointer; font: inherit; color: inherit; }
+.dex-side-tab-open { background: var(--ag-row-hover-color, #eef3ff); }
+.dex-columns-panel { width: 240px; display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--ag-border-color, #ccc); }
+.dex-columns-head { display: flex; gap: 6px; align-items: center; padding: 6px; border-bottom: 1px solid var(--ag-border-color, #ccc); }
+.dex-columns-search { flex: 1; min-width: 0; padding: 4px 6px; border: 1px solid var(--ag-border-color, #ccc); border-radius: 3px; font: inherit; }
+.dex-columns-list { flex: 1 1 auto; overflow: auto; padding: 4px 0; }
+.dex-columns-item { display: flex; align-items: center; gap: 6px; padding: 2px 8px; height: 24px; cursor: grab; white-space: nowrap; }
+.dex-columns-item[draggable="false"], .dex-columns-item:not([draggable]) { cursor: default; }
+.dex-columns-drop { box-shadow: inset 0 2px 0 var(--ag-accent-color, #2196f3); }
+.dex-columns-name { overflow: hidden; text-overflow: ellipsis; }
+
+.dex-range-cell { background-color: color-mix(in srgb, var(--ag-range-selection-background-color, #2196f3) 18%, transparent) !important; }
+.dex-range-multi { background-color: color-mix(in srgb, var(--ag-range-selection-background-color, #2196f3) 32%, transparent) !important; }
+.dex-range-top { border-top: 1px solid var(--ag-range-selection-border-color, #2196f3) !important; }
+.dex-range-bottom { border-bottom: 1px solid var(--ag-range-selection-border-color, #2196f3) !important; }
+.dex-range-left { border-left: 1px solid var(--ag-range-selection-border-color, #2196f3) !important; }
+.dex-range-right { border-right: 1px solid var(--ag-range-selection-border-color, #2196f3) !important; }
+.dex-range-dragging, .dex-range-dragging * { user-select: none; }
+
+.dex-group-cell { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.dex-group-toggle { display: inline-block; width: 16px; text-align: center; cursor: pointer; user-select: none; }
+.dex-group-count { opacity: 0.65; }
+.dex-group-row { font-weight: 600; }
+.dex-group-panel { display: flex; align-items: center; min-height: 34px; padding: 4px 8px; border-bottom: 1px solid var(--ag-border-color, #ccc); background: var(--ag-header-background-color, #f8f8f8); }
+.dex-group-panel[hidden] { display: none; }
+.dex-group-panel .dex-drop-zone { border: 0; margin: 0; padding: 0; display: flex; align-items: center; gap: 8px; flex: 1; }
+.dex-group-panel .dex-drop-zone-title { display: none; }
+.dex-columns-zones { border-top: 1px solid var(--ag-border-color, #ccc); }
+.dex-drop-zone { margin: 6px; padding: 4px; border: 1px dashed var(--ag-border-color, #ccc); border-radius: 4px; }
+.dex-drop-zone-over { border-color: var(--ag-accent-color, #2196f3); background: color-mix(in srgb, var(--ag-accent-color, #2196f3) 8%, transparent); }
+.dex-drop-zone-title { font-weight: 600; padding: 2px 2px 4px; }
+.dex-drop-zone-body { display: flex; flex-wrap: wrap; gap: 4px; min-height: 24px; align-items: center; }
+.dex-drop-zone-empty { opacity: 0.6; font-style: italic; }
+.dex-chip { display: inline-flex; align-items: center; gap: 4px; padding: 1px 4px 1px 8px; border-radius: 12px; background: var(--ag-row-hover-color, #eef3ff); border: 1px solid var(--ag-border-color, #ccc); cursor: grab; }
+.dex-chip-remove { border: 0; background: transparent; cursor: pointer; font: inherit; line-height: 1; padding: 0 2px; }
+.dex-agg-select { font: inherit; padding: 0; }
+.dex-pivot-mode { display: flex; align-items: center; gap: 6px; padding: 6px 8px; font-weight: 600; cursor: pointer; }
+.dex-group-toggle-empty { visibility: hidden; }
+
+.dex-chart-dialog { position: fixed; z-index: 9999; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 640px; height: 420px; min-width: 320px; min-height: 240px; display: flex; flex-direction: column; resize: both; overflow: hidden; background: var(--ag-background-color, #fff); border: 1px solid var(--ag-border-color, #ccc); box-shadow: 0 8px 28px rgb(0 0 0 / 22%); }
+.dex-chart-head { display: flex; gap: 8px; align-items: center; padding: 6px 8px; border-bottom: 1px solid var(--ag-border-color, #ccc); cursor: move; }
+.dex-chart-head select, .dex-chart-head button { font: inherit; cursor: pointer; }
+.dex-chart-close { margin-left: auto; border: 0; background: transparent; font-size: 18px; line-height: 1; }
+.dex-chart-body { flex: 1 1 auto; min-height: 0; }
+
+.dex-menu { position: fixed; z-index: 10000; min-width: 200px; padding: 4px 0; background: var(--ag-background-color, #fff); color: var(--ag-foreground-color, #111); border: 1px solid var(--ag-border-color, #ccc); box-shadow: 0 4px 16px rgb(0 0 0 / 18%); font: 13px system-ui, sans-serif; outline: none; }
+.dex-menu-item { display: grid; grid-template-columns: 20px 1fr auto; gap: 8px; align-items: center; padding: 5px 12px 5px 8px; cursor: default; white-space: nowrap; }
+.dex-menu-active { background: var(--ag-row-hover-color, #eef3ff); }
+.dex-menu-disabled { opacity: 0.45; }
+.dex-menu-shortcut { opacity: 0.6; }
+.dex-menu-separator { height: 1px; margin: 4px 0; background: var(--ag-border-color, #ddd); }
+
+.dex-rich-select {min-width: 180px; background: var(--ag-background-color, #fff); border: 1px solid var(--ag-border-color, #ccc); box-shadow: 0 2px 8px rgb(0 0 0 / 15%); outline: none; font: inherit; }
+.dex-rich-select-search { width: 100%; box-sizing: border-box; padding: 4px 6px; border: 0; border-bottom: 1px solid var(--ag-border-color, #ccc); font: inherit; outline: none; }
+.dex-rich-select-list { overflow-y: auto; }
+.dex-rich-select-item { padding: 4px 8px; cursor: pointer; white-space: nowrap; }
+.dex-rich-select-item:hover, .dex-rich-select-active { background: var(--ag-row-hover-color, #eef3ff); }
+.dex-rich-select-current { font-weight: 600; }

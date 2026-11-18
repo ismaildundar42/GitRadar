@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/GitRadar.API/GitRadar.API.csproj" />
+    <Project Path="src/GitRadar.Application/GitRadar.Application.csproj" />
+    <Project Path="src/GitRadar.Domain/GitRadar.Domain.csproj" />
+    <Project Path="src/GitRadar.Infrastructure/GitRadar.Infrastructure.csproj" />
+    <Project Path="src/GitRadar.Persistence/GitRadar.Persistence.csproj" />
+    <Project Path="src/GitRadar.Scanner.NuGet/GitRadar.Scanner.NuGet.csproj" />
+    <Project Path="src/GitRadar.Scanning.Abstractions/GitRadar.Scanning.Abstractions.csproj" />
+    <Project Path="src/GitRadar.Scanning.Core/GitRadar.Scanning.Core.csproj" />
+    <Project Path="src/GitRadar.Worker/GitRadar.Worker.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GitRadar.Domain\GitRadar.Domain.csproj" />
+    <ProjectReference Include="..\GitRadar.Scanning.Core\GitRadar.Scanning.Core.csproj" />
+    <ProjectReference Include="..\GitRadar.Scanner.NuGet\GitRadar.Scanner.NuGet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,34 @@
+{
+  "name": "dex-grid",
+  "version": "0.1.0",
+  "description": "Open-source data grid built on AG Grid Community, adding the features DexShed uses from AG Grid Enterprise.",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./styles.css": "./src/styles.css",
+    "./compat": "./src/compat.js",
+    "./dist/*": "./dist/*"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "test": "node --test \"test/unit/*.test.js\"",
+    "demo": "node demo/server.mjs",
+    "build": "node scripts/build.mjs"
+  },
+  "peerDependencies": {
+    "ag-grid-community": "36.2.0"
+  },
+  "dependencies": {
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "ag-charts-community": "14.2.0",
+    "ag-grid-community": "36.2.0",
+    "esbuild": "0.25.10"
+  }
+}

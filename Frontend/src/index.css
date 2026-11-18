@@ -1,0 +1,397 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #F8FAFC;
+    color: #0F172A;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .dark body {
+    background-color: #0B1320;
+    color: #F8FAFC;
+  }
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #1E293B;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Dex-Grid Full Width & Layout Guarantees */
+.dex-grid-root {
+  display: block !important;
+  width: 100% !important;
+}
+
+.dex-grid-main {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.dex-grid-host {
+  flex: 1 1 auto !important;
+  width: 100% !important;
+}
+
+/* Gereksiz iç scroll ve çift border temizliği */
+.ag-root-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  border-radius: 0.75rem !important;
+  border: 1px solid var(--ag-border-color) !important;
+}
+
+.ag-root-wrapper-body,
+.ag-root {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  height: auto !important;
+}
+
+/* Yalnızca yan paneli gizle, ana gridi asla gizleme */
+.dex-side-bar {
+  display: none !important;
+  width: 0 !important;
+  max-width: 0 !important;
+  flex: 0 0 0 !important;
+}
+
+/* Dex-Grid Enterprise Theme Polishing */
+.ag-theme-alpine,
+.ag-theme-alpine-dark {
+  --ag-header-height: 46px;
+  --ag-row-height: 52px;
+  font-family: inherit !important;
+}
+
+/* AG Grid Dark Mod Uyum Değişkenleri */
+.ag-theme-alpine-dark {
+  --ag-background-color: #0d1527 !important;
+  --ag-header-background-color: #111c35 !important;
+  --ag-odd-row-background-color: #0b1220 !important;
+  --ag-row-hover-color: rgba(30, 41, 59, 0.7) !important;
+  --ag-selected-row-background-color: rgba(59, 130, 246, 0.15) !important;
+  --ag-border-color: rgba(255, 255, 255, 0.08) !important;
+  --ag-foreground-color: #e2e8f0 !important;
+  --ag-secondary-foreground-color: #94a3b8 !important;
+}
+
+/* AG Grid Açık Mod Uyum Değişkenleri */
+.ag-theme-alpine {
+  --ag-background-color: #ffffff !important;
+  --ag-header-background-color: #f8fafc !important;
+  --ag-odd-row-background-color: #ffffff !important;
+  --ag-row-hover-color: #f1f5f9 !important;
+  --ag-selected-row-background-color: #eff6ff !important;
+  --ag-border-color: #e2e8f0 !important;
+  --ag-foreground-color: #0f172a !important;
+  --ag-secondary-foreground-color: #64748b !important;
+}
+
+.ag-theme-alpine .ag-header-cell-text,
+.ag-theme-alpine-dark .ag-header-cell-text {
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+.ag-theme-alpine .ag-header-cell-text {
+  color: #334155 !important;
+}
+
+.ag-theme-alpine-dark .ag-header-cell-text {
+  color: #e2e8f0 !important;
+}
+
+.ag-theme-alpine .ag-row,
+.ag-theme-alpine-dark .ag-row {
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  font-size: 13px !important;
+  border-bottom: 1px solid var(--ag-border-color) !important;
+}
+
+.ag-theme-alpine .ag-cell,
+.ag-theme-alpine-dark .ag-cell {
+  display: flex !important;
+  align-items: center !important;
+  line-height: normal !important;
+}
+
+/* Dex-Grid Context Menu Styling */
+.dex-menu {
+  border-radius: 10px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+  padding: 6px 0 !important;
+  min-width: 230px !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
+  font-family: inherit !important;
+  overflow: hidden !important;
+}
+
+.dark .dex-menu {
+  background: #111c2e !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dex-menu-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 8px 14px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: background-color 0.15s ease !important;
+}
+
+.dex-menu-active {
+  background: #f1f5f9 !important;
+}
+
+.dark .dex-menu-active {
+  background: #1e293b !important;
+}
+
+.dex-menu-separator {
+  height: 1px !important;
+  margin: 4px 0 !important;
+  background: #e2e8f0 !important;
+}
+
+.dark .dex-menu-separator {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dex-menu-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 18px !important;
+  height: 18px !important;
+  flex-shrink: 0 !important;
+}
+
+.dex-menu-label {
+  flex: 1 1 auto !important;
+}
+
+.dex-menu-shortcut {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 11px !important;
+  opacity: 0.65 !important;
+}
+
+.dex-menu-disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
+}
+
+/* Dex-Grid Set Filter Styling */
+.dex-set-filter {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-radius: 8px !important;
+  padding: 8px !important;
+  font-family: inherit !important;
+}
+
+.dark .dex-set-filter {
+  background: #111c2e !important;
+  color: #f1f5f9 !important;
+}
+
+.dex-set-filter-mini {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+}
+
+.dark .dex-set-filter-mini {
+  background: #0b1320 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: #f1f5f9 !important;
+}
+
+.dex-set-filter-item {
+  font-size: 12px !important;
+  color: inherit !important;
+  cursor: pointer !important;
+}
+
+/* Dex-Grid Group Rows Styling */
+.dex-group-row {
+  font-weight: 600 !important;
+  background-color: #f1f5f9 !important;
+}
+
+.ag-theme-alpine-dark .dex-group-row {
+  background-color: rgba(30, 41, 59, 0.8) !important;
+  color: #f8fafc !important;
+}
+
+.dex-group-cell {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  width: 100% !important;
+}
+
+.dex-group-toggle {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  transition: transform 0.15s ease, background-color 0.15s ease !important;
+}
+
+.dex-group-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.ag-theme-alpine-dark .dex-group-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.dex-group-count {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin-left: 6px !important;
+  padding: 1px 7px !important;
+  border-radius: 9999px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  background: #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+.ag-theme-alpine-dark .dex-group-count {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #cbd5e1 !important;
+}
+
+/* Dex-Grid Rich Select Editor Styling */
+.dex-rich-select {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid #cbd5e1 !important;
+  background: #ffffff !important;
+}
+
+.dark .dex-rich-select,
+.ag-theme-alpine-dark .dex-rich-select {
+  background: #111c2e !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: #f1f5f9 !important;
+}
+
+.dex-rich-select-item {
+  padding: 6px 12px !important;
+  font-size: 12px !important;
+  cursor: pointer !important;
+}
+
+.dex-rich-select-item:hover,
+.dex-rich-select-active {
+  background-color: #f1f5f9 !important;
+}
+
+.ag-theme-alpine-dark .dex-rich-select-item:hover,
+.ag-theme-alpine-dark .dex-rich-select-active {
+  background-color: #1e293b !important;
+}
+
+/* ==========================================================================
+   Erişilebilirlik (A11y) Global Stilleri
+   ========================================================================== */
+
+/* Metin Boyutları */
+html.a11y-font-lg {
+  font-size: 110%;
+}
+
+html.a11y-font-xl {
+  font-size: 120%;
+}
+
+/* Yüksek Kontrast */
+html.a11y-high-contrast {
+  --tw-border-opacity: 1;
+  filter: contrast(115%);
+}
+
+html.a11y-high-contrast button,
+html.a11y-high-contrast input,
+html.a11y-high-contrast select {
+  border-width: 2px !important;
+}
+
+/* Bağlantı Vurgulama */
+html.a11y-highlight-links a,
+html.a11y-highlight-links button {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+/* Net Okuma Fontu */
+html.a11y-readable-font body,
+html.a11y-readable-font * {
+  font-family: Arial, Helvetica, sans-serif !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Hareket Azaltma */
+html.a11y-reduce-motion * {
+  animation: none !important;
+  transition: none !important;
+}
+
